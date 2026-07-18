@@ -1,0 +1,91 @@
+export const leadColumns = [
+  { title: 'New', count: 16 },
+  { title: 'Contacted', count: 14 },
+  { title: 'Follow-up', count: 6 },
+  { title: 'Closed', count: 8 },
+]
+
+export const leads = [
+  {
+    id: 'liam-chen',
+    name: 'Liam Chen',
+    project: 'Azure',
+    activity: '1 day ago',
+    status: 'Stale',
+    column: 'New',
+    email: 'liam.chen@example.com',
+    phone: '(555) 123-4567',
+    stage: 'New',
+    assignedAgent: 'Sarah Jenkins',
+    unit: '2 BHK',
+    budget: '$520k - $620k',
+    created: '2023-10-26',
+    recentActivity: [
+      '10/28/23: Called and left voicemail',
+      '10/26/23: Saw property at Azure Heights',
+    ],
+  },
+  {
+    id: 'sophia-rodriguez',
+    name: 'Sophia Rodriguez',
+    project: 'Grand',
+    activity: '4 days ago',
+    status: 'Stale',
+    column: 'Contacted',
+    flag: true,
+    email: 'sophia.rodriguez@example.com',
+    phone: '(555) 234-5678',
+    stage: 'Contacted',
+    assignedAgent: 'Sarah Jenkins',
+    unit: '3 BHK',
+    budget: '$650k - $750k',
+    created: '2023-10-20',
+    recentActivity: [
+      '10/28/23: Followed up via WhatsApp',
+      '10/26/23: Received pricing request',
+    ],
+  },
+  {
+    id: 'john-adams',
+    name: 'John Adams',
+    project: 'Sork',
+    activity: '1 days ago',
+    status: 'Stale',
+    column: 'Follow-up',
+    email: 'john.adams@example.com',
+    phone: '(555) 101-2000',
+    stage: 'Contacted',
+    assignedAgent: 'Sarah Jenkins',
+    unit: '3 BHK',
+    budget: '$500k - $750k',
+    created: '2023-10-26',
+    recentActivity: [
+      '10/28/23: Stage to Contacted',
+      '10/26/23: Followed via WhatsApp',
+      '10/26/23: Call - No Answer',
+    ],
+  },
+  {
+    id: 'closed-rossi',
+    name: 'Closed Rossi',
+    project: 'Azure',
+    activity: '1 day ago',
+    status: 'Stale',
+    column: 'Closed',
+    email: 'closed.rossi@example.com',
+    phone: '(555) 345-6789',
+    stage: 'Booked',
+    assignedAgent: 'John Doe',
+    unit: '1 BHK',
+    budget: '$400k - $500k',
+    created: '2023-10-22',
+    recentActivity: [
+      '10/28/23: Contract signed',
+      '10/26/23: Site visit completed',
+    ],
+  },
+]
+
+export function findLeadById(id) {
+  return leads.find((lead) => lead.id === id)
+}
