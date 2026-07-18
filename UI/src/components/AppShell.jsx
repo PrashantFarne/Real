@@ -1,9 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom'
 
 const navItems = [
-  { label: 'Dashboard', path: '/' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'My Leads', path: '/leads' },
-  { label: 'Add Lead', path: '/add-lead' },
 ]
 
 export default function AppShell() {

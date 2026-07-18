@@ -43,9 +43,9 @@ export default function DashboardPage() {
           <AttentionList rows={attentionRows} />
         </div>
 
-        <aside className="dashboard-sidepanel">
+        {/* <aside className="dashboard-sidepanel">
           <QuickLinks links={quickLinks} />
-        </aside>
+        </aside> */}
       </section>
 
       <section className="performance-panel">
