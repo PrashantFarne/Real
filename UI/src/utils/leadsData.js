@@ -5,6 +5,37 @@ export const leadColumns = [
   { title: 'Closed', count: 8 },
 ]
 
+export const unassignedLeads = [
+  {
+    id: 'liam-chen',
+    name: 'Liam Chen',
+    created: '7/08/2020, 3:39 PM',
+    hours: 26,
+    project: 'Azure',
+  },
+  {
+    id: 'sarah-jenkins',
+    name: 'Sarah Jenkins',
+    created: '7/09/2020, 2:53 PM',
+    hours: 11,
+    project: 'Grand',
+  },
+  {
+    id: 'marcy-smiler',
+    name: 'Marcy Smiler',
+    created: '6/07/2020, 3:17 PM',
+    hours: 14,
+    project: 'Sork',
+  },
+  {
+    id: 'chiran-smith',
+    name: 'Chiran Smith',
+    created: '3/08/2020, 5:54 PM',
+    hours: 8,
+    project: 'Azure',
+  },
+]
+
 export const leads = [
   {
     id: 'liam-chen',

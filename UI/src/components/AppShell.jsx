@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 const navItems = [
   { label: 'Dashboard', path: '/dashboard' },
   { label: 'My Leads', path: '/leads' },
+  { label: 'Unassigned Queue', path: '/unassigned' },
 ]
 
 export default function AppShell() {

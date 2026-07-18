@@ -1582,3 +1582,142 @@ button {
     font-size: 2.5rem;
   }
 }
+
+.unassigned-shell {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.unassigned-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unassigned-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.unassigned-panel {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.unassigned-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.unassigned-selected {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.unassigned-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.unassigned-table-wrapper {
+  overflow-x: auto;
+}
+
+.unassigned-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.unassigned-table th,
+.unassigned-table td {
+  text-align: left;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.unassigned-table th {
+  color: #475569;
+  font-weight: 700;
+}
+
+.unassigned-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.unassigned-row-selected {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.unassigned-row-selected td {
+  color: #0f172a;
+}
+
+.hours-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+@media (max-width: 960px) {
+  .unassigned-table {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .unassigned-shell {
+    padding: 1rem;
+  }
+
+  .unassigned-panel {
+    padding: 1rem;
+  }
+
+  .unassigned-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .unassigned-actions-row {
+    justify-content: space-between;
+  }
+
+  .unassigned-table th,
+  .unassigned-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .unassigned-table {
+    min-width: 100%;
+  }
+
+  .unassigned-table th,
+  .unassigned-table td {
+    font-size: 0.85rem;
+  }
+
+  .unassigned-selected {
+    gap: 0.5rem;
+  }
+}
