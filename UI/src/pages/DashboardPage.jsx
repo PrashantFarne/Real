@@ -24,7 +24,7 @@ export default function DashboardPage() {
         <div className="dashboard-panel dashboard-panel--wide">
           <div className="panel-header">
             <div>
-              <h2>Funnel Widget</h2>
+              <h2>Leads</h2>
               <p>Current sales pipeline overview</p>
             </div>
             <button className="small-button">Funnel Insights</button>

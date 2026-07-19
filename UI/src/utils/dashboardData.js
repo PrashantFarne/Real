@@ -18,6 +18,16 @@ export const dashboardStats = [
     value: '30',
     extra: '+10% vs last month',
   },
+    {
+    title: 'Leads Booked This Month',
+    value: '30',
+    extra: '+10% vs last month',
+  },
+    {
+    title: 'Leads Booked This Month',
+    value: '30',
+    extra: '+10% vs last month',
+  },
 ]
 
 export const funnelStages = [

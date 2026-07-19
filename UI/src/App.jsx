@@ -5,6 +5,8 @@ import LeadsPage from './pages/LeadsPage'
 import AddLeadPage from './pages/AddLeadPage'
 import LeadDetailPage from './pages/LeadDetailPage'
 import UnassignedQueuePage from './pages/UnassignedQueuePage'
+import OnboardingPage from './pages/OnboardingPage'
+import TeamSetupPage from './pages/TeamSetupPage'
 import LoginPage from './pages/LoginPage'
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="leads" element={<LeadsPage />} />
         <Route path="unassigned" element={<UnassignedQueuePage />} />
+        <Route path="onboarding" element={<OnboardingPage />} />
+        <Route path="team-setup" element={<TeamSetupPage />} />
         <Route path="add-lead" element={<AddLeadPage />} />
         <Route path="lead/:id" element={<LeadDetailPage />} />
       </Route>

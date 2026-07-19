@@ -158,11 +158,17 @@ body {
 
 .funnel-widget {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .funnel-item {
-  display: grid;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
@@ -170,6 +176,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .funnel-label {
@@ -182,35 +189,55 @@ body {
 .funnel-count {
   display: block;
   color: #64748b;
-  font-size: 0.85rem;
-  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  margin-top: 0.15rem;
 }
 
 .funnel-percentage {
   font-weight: 700;
   color: #0f172a;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .funnel-bar-container {
   width: 100%;
-  height: 32px;
+  height: 36px;
   background: #f1f5f9;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
 .funnel-bar-fill {
   height: 100%;
-  border-radius: 16px;
-  transition: width 0.3s ease;
+  border-radius: 12px;
+  transition: width 0.35s ease;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 0.75rem;
+  padding-right: 0.6rem;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+  .funnel-widget {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .funnel-widget {
+    grid-template-columns: 1fr;
+  }
+
+  .funnel-bar-container {
+    height: 28px;
+  }
+
+  .funnel-item {
+    padding: 0.75rem;
+  }
 }
 
 .attention-list {
@@ -1720,4 +1747,106 @@ button {
   .unassigned-selected {
     gap: 0.5rem;
   }
+}
+
+/* Onboarding Page */
+.onboarding-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.onboarding-card {
+  max-width: 920px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: 0 20px 60px rgba(15,23,42,0.08);
+  text-align: center;
+}
+
+.onboarding-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.onboarding-option {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.onboarding-option:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(15,23,42,0.06); }
+
+.onboarding-option.selected {
+  background: #ffffff;
+  border-color: #c7e0ff;
+  box-shadow: 0 18px 36px rgba(15,23,42,0.09);
+}
+
+.option-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+.onboarding-note { color: #64748b; font-size: 0.95rem; margin-top: 1rem; }
+
+.invite-modal {
+  position: fixed;
+  right: 20px;
+  top: 120px;
+}
+
+.invite-box {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(15,23,42,0.12);
+  min-width: 260px;
+}
+
+.invite-box h4 { margin: 0 0 0.5rem 0 }
+.invite-box label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem }
+.invite-box input { width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 0.25rem }
+.invite-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.5rem }
+
+.team-list { margin-top: 1rem; text-align: left }
+.team-list ul { padding-left: 1rem; margin: 0 }
+
+@media (max-width: 800px) {
+  .onboarding-cards { grid-template-columns: 1fr }
+  .invite-modal { position: static; margin-top: 1rem }
+  .onboarding-shell { padding: 1rem }
+}
+
+/* Team Setup form styles */
+.team-setup-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.team-form-card {
+  width: min(720px, 100%);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.08);
+}
+
+.team-form h2 { margin: 0 0 0.5rem 0 }
+.help-text { color: #64748b; margin-bottom: 1rem }
+.team-form label { display: block; margin-bottom: 0.75rem; font-weight: 600 }
+.team-form input { width: 100%; padding: 0.6rem 0.75rem; border-radius: 10px; border: 1px solid #e2e8f0; margin-top: 0.35rem }
+.form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem }
+
+@media (max-width: 640px) {
+  .team-form-card { padding: 1rem }
+  .form-actions { flex-direction: column-reverse }
+  .form-actions .primary-button { width: 100% }
 }
