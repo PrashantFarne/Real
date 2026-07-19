@@ -46,7 +46,7 @@ export default function LeadsPage() {
           <div className="filter-group">
             <label>Filter:</label>
             <div className="filter-controls">
-              <select
+              {/* <select
                 value={filterProject}
                 onChange={(e) => setFilterProject(e.target.value)}
                 className="filter-select"
@@ -57,7 +57,7 @@ export default function LeadsPage() {
                     {project}
                   </option>
                 ))}
-              </select>
+              </select> */}
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}

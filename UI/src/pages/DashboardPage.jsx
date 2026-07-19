@@ -15,11 +15,11 @@ export default function DashboardPage() {
 
   return (
     <main className="dashboard-shell">
-      {/* <header className="dashboard-header">
+      <header className="dashboard-header">
         <div>
           <p className="dashboard-subtitle">Admin Dashboard — Organization Wide</p>
         </div>
-      </header> */}
+      </header>
 
       <section className="stats-row">
         {dashboardStats.map((stat) => (
