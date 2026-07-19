@@ -12,14 +12,10 @@ export default function AttentionList({ rows }) {
               <span className={`status-pill status-pill--${row.status.toLowerCase()}`}>
                 {row.status}
               </span>
-              <button className="outline-button">Log Activity</button>
+              {/* <button className="outline-button">Log Activity</button> */}
             </div>
           </div>
         ))}
-      </div>
-      <div className="attention-footer">
-        <span>Overdue Follow-ups Org-wide</span>
-        <strong>35</strong>
       </div>
     </div>
   )

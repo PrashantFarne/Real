@@ -14,16 +14,6 @@ export default function FunnelWidget({ stages }) {
                 <span className="funnel-label">{stage.label}</span>
                 <span className="funnel-count">{stage.value}</span>
               </div>
-              <span className="funnel-percentage">{stage.percentage}</span>
-            </div>
-            <div className="funnel-bar-container">
-              <div
-                className="funnel-bar-fill"
-                style={{
-                  width: `${percentage}%`,
-                  backgroundColor: colors[index],
-                }}
-              />
             </div>
           </div>
         )

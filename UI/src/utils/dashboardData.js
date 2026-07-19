@@ -1,32 +1,45 @@
+export const visitDetails = [
+  {
+    id: 1,
+    name: 'Aarav Sharma',
+    email: 'aarav.sharma@example.com',
+    flatSize: '2 BHK',
+    notes: 'Prefers a south-facing flat and wants a quick walkthrough.',
+    profession: 'Software Engineer',
+  },
+  {
+    id: 2,
+    name: 'Meera Patel',
+    email: 'meera.patel@example.com',
+    flatSize: '3 BHK',
+    notes: 'Interested in premium amenities and school proximity.',
+    profession: 'Doctor',
+  },
+  {
+    id: 3,
+    name: 'Rohan Desai',
+    email: 'rohan.desai@example.com',
+    flatSize: '1 BHK',
+    notes: 'Looking for a ready-to-move-in unit near metro.',
+    profession: 'Architect',
+  },
+]
+
 export const dashboardStats = [
   {
-    title: 'Total Leads (This Month)',
-    value: '1,250',
-    extra: '+5% vs Last Month\nNew Leads Today: 25',
+    title: 'Site Visits Scheduled Today',
+    value: '10',
+    popup: true,
   },
   {
-    title: 'Unassigned Leads Count',
-    value: '18',
-    extra: 'Go to Queue',
+    title: 'Site Visits Scheduled Tomorrow',
+    value: '5',
+    popup: true,
   },
   {
-    title: 'Site Visits Scheduled This Week',
+    title: 'Site Visits Scheduled Next 7 Days',
     value: '55',
-  },
-  {
-    title: 'Leads Booked This Month',
-    value: '30',
-    extra: '+10% vs last month',
-  },
-    {
-    title: 'Leads Booked This Month',
-    value: '30',
-    extra: '+10% vs last month',
-  },
-    {
-    title: 'Leads Booked This Month',
-    value: '30',
-    extra: '+10% vs last month',
+    popup: true,
   },
 ]
 
@@ -39,18 +52,12 @@ export const funnelStages = [
 ]
 
 export const attentionRows = [
-  { name: 'Sarah Jenkins', stage: 'Contacted', days: 7, status: 'Contacted' },
-  { name: 'Michael Brown', stage: 'Contacted', days: 3, status: 'Contacted' },
-  { name: 'John Adams', stage: 'Walk-in', days: 3, status: 'Walk-in' },
+  { name: 'Sarah Jenkins', stage: 'Contacted', days: 12, status: 'Contacted' },
+  { name: 'Michael Brown', stage: 'Contacted', days: 9, status: 'Contacted' },
+  { name: 'John Adams', stage: 'Walk-in', days: 8, status: 'Walk-in' },
 ]
 
 export const performanceRows = [
   { name: 'Sarah Jenkins', assigned: 120, contacted: 110, visits: 50, booked: 15, conversion: '12.5%' },
   { name: 'Michael Brown', assigned: 100, contacted: 95, visits: 45, booked: 10, conversion: '10.0%' },
-]
-
-export const quickLinks = [
-  { label: 'Unassigned Queue' },
-  { label: 'Inventory Management' },
-  { label: 'Reports' },
 ]
