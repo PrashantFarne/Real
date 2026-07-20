@@ -14,8 +14,6 @@ export default function AddLeadPage() {
   const [budgetMin, setBudgetMin] = useState('$500k')
   const [budgetMax, setBudgetMax] = useState('$750k')
   const [notes, setNotes] = useState('')
-  const [duplicateCheck, setDuplicateCheck] = useState(true)
-  const [autoAssign, setAutoAssign] = useState(true)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -24,12 +22,20 @@ export default function AddLeadPage() {
 
   return (
     <main className="add-lead-shell">
+      <header className="add-lead-page-header">
+        <div>
+          <p className="leads-eyebrow">Lead management</p>
+          <h1>Add New Lead</h1>
+          <p>Create a complete profile so your sales team can follow up with confidence.</p>
+        </div>
+      </header>
+
       <div className="add-lead-grid">
         <section className="lead-form-card">
           <div className="form-card-header">
             <div>
-              <p className="section-title">Add New Lead</p>
-              <p className="section-note">Fill out the lead details below. Required fields are marked with an asterisk.</p>
+              <p className="section-title">Lead details</p>
+              <p className="section-note">Required fields are marked with an asterisk.</p>
             </div>
           </div>
 
@@ -112,10 +118,11 @@ export default function AddLeadPage() {
             </div>
 
             <button type="submit" className="submit-button">
-              Submit & Redirect to Lead Detail Screen
+              Create Lead <span aria-hidden="true">→</span>
             </button>
           </form>
         </section>
+
       </div>
     </main>
   )

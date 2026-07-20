@@ -22,22 +22,36 @@ export default function LeadsPage() {
 
   const projects = [...new Set(leads.map((lead) => lead.project))]
   const statuses = [...new Set(leads.map((lead) => lead.status))]
+  const totalLeads = filteredLeads.length
+
+  const initialsFor = (name) => name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
 
   return (
     <div className="leads-shell">
       <header className="leads-header">
         <div className="leads-header-top">
-          <h1>My Leads</h1>
+          <div>
+            <p className="leads-eyebrow">Sales workspace</p>
+            <h1>My Leads</h1>
+            <p className="leads-header-copy">Track conversations and move every opportunity forward.</p>
+          </div>
           <div className="leads-search-actions">
-            <input
-              type="text"
-              placeholder="Search by name, phone, or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="leads-search"
-            />
+            <label className="leads-search-wrap">
+              <span className="leads-search-icon" aria-hidden="true">⌕</span>
+              <input
+                type="text"
+                placeholder="Search by name, phone, or email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="leads-search"
+              />
+            </label>
             <button className="primary-button" onClick={() => navigate('/add-lead')}>
-              + Add Lead
+              <span aria-hidden="true">+</span> Add Lead
             </button>
           </div>
         </div>
@@ -46,10 +60,11 @@ export default function LeadsPage() {
           <div className="filter-group">
             <label>Filter:</label>
             <div className="filter-controls">
-              {/* <select
+              <select
                 value={filterProject}
                 onChange={(e) => setFilterProject(e.target.value)}
                 className="filter-select"
+                aria-label="Filter by project"
               >
                 <option value="">All Projects</option>
                 {projects.map((project) => (
@@ -57,11 +72,12 @@ export default function LeadsPage() {
                     {project}
                   </option>
                 ))}
-              </select> */}
+              </select>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="filter-select"
+                aria-label="Filter by status"
               >
                 <option value="">All Status</option>
                 {statuses.map((status) => (
@@ -74,6 +90,7 @@ export default function LeadsPage() {
           </div>
 
           <div className="leads-view-options">
+            <span className="leads-total"><strong>{totalLeads}</strong> leads shown</span>
             <div className="agent-select">
               <label>Agent:</label>
               <select defaultValue="Sarah Jenkins">
@@ -94,10 +111,13 @@ export default function LeadsPage() {
           {leadColumns.map((column) => {
             const columnLeads = filteredLeads.filter((lead) => lead.column === column.title)
             return (
-              <section key={column.title} className="lead-column">
+              <section key={column.title} className={`lead-column lead-column--${column.title.toLowerCase().replace('-', '')}`}>
                 <div className="lead-column__header">
-                  <span>{column.title}</span>
-                  <span className="lead-count">{columnLeads.length}</span>
+                  <div>
+                    <span className="lead-column__title">{column.title}</span>
+                    <span className="lead-column__subtitle">{columnLeads.length === 1 ? '1 opportunity' : `${columnLeads.length} opportunities`}</span>
+                  </div>
+                  <span className="lead-count" aria-label={`${columnLeads.length} leads`}>{columnLeads.length}</span>
                 </div>
                 <div className="lead-column__cards">
                   {columnLeads.map((lead) => (
@@ -108,19 +128,21 @@ export default function LeadsPage() {
                     >
                       <div className="lead-card-top">
                         <div className="lead-card__title">
-                          <strong>{lead.name}</strong>
-                          {lead.flag && <span className="lead-flag">⚠</span>}
+                          <span className="lead-avatar" aria-hidden="true">{initialsFor(lead.name)}</span>
+                          <div>
+                            <strong>{lead.name}</strong>
+                            <span className="lead-card-project">{lead.project}</span>
+                          </div>
                         </div>
-                        <span className={`lead-status-badge lead-status-badge--${lead.status.toLowerCase()}`}>
-                          {lead.status}
-                        </span>
+                        <div className="lead-card-indicators">
+                          {lead.flag && <span className="lead-flag" title="Needs follow-up">!</span>}
+                          <span className={`lead-status-badge lead-status-badge--${lead.status.toLowerCase()}`}>
+                            {lead.status}
+                          </span>
+                        </div>
                       </div>
 
                       <div className="lead-card-body">
-                        <div className="lead-detail-row">
-                          <span className="lead-label">Project:</span>
-                          <span className="lead-project-badge">{lead.project}</span>
-                        </div>
                         <div className="lead-detail-row">
                           <span className="lead-label">Unit:</span>
                           <span>{lead.unit}</span>
