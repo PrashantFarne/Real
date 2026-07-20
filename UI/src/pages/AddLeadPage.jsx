@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { api } from '../api/client'
 
 const sources = ['Walk-in', 'Referral', 'Online Ad', 'Social Media']
 const projects = ['Serenity Towers', 'Oakwood Residences', 'Cityview Heights']
 const units = ['1 BHK', '2 BHK', '3 BHK', 'Penthouse']
 
 export default function AddLeadPage() {
+  const navigate = useNavigate()
   const [name, setName] = useState('John Adams')
   const [phone, setPhone] = useState('(555) 101-2000')
   const [email, setEmail] = useState('email@example.com')
@@ -17,7 +20,9 @@ export default function AddLeadPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    alert('Lead submitted and redirecting to detail screen')
+    api.createLead({ name, phone, email, source, project, unit, budgetMin, budgetMax, notes })
+      .then((lead) => navigate(`/lead/${lead.id}`))
+      .catch(() => alert('Unable to create the lead. Please confirm the backend is running.'))
   }
 
   return (

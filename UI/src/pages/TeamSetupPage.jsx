@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../api/client'
 
 export default function TeamSetupPage() {
   const [agent1, setAgent1] = useState('')
@@ -14,9 +15,9 @@ export default function TeamSetupPage() {
       setError('First agent name is required')
       return
     }
-    // For now we simply navigate to Unassigned Queue after setup
-    // In a real app we'd persist these agents to backend
-    navigate('/unassigned')
+    api.saveTeam([agent1, agent2, agent3])
+      .then(() => navigate('/unassigned'))
+      .catch(() => setError('Unable to save team members. Please confirm the backend is running.'))
   }
 
   return (

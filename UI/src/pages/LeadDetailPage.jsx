@@ -1,10 +1,22 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { findLeadById } from '../utils/leadsData'
+import { api } from '../api/client'
 
 export default function LeadDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const lead = findLeadById(id)
+  const [lead, setLead] = useState(() => findLeadById(id))
+  const [agents, setAgents] = useState([])
+
+  useEffect(() => {
+    api.lead(id).then(setLead).catch(() => {})
+    api.agents().then(setAgents).catch(() => {})
+  }, [id])
+
+  const deleteLead = () => {
+    if (window.confirm('Delete this lead?')) api.deleteLead(id).then(() => navigate('/leads')).catch(() => alert('Unable to delete the lead.'))
+  }
 
   if (!lead) {
     return (
@@ -112,12 +124,15 @@ export default function LeadDetailPage() {
           <span>Admins only</span>
         </div>
         <div className="admin-actions-row">
-          <select>
-            <option>Reassign agent</option>
-            <option>Sarah Jenkins</option>
+          <select
+            value={lead.assignedAgent || ''}
+            onChange={(event) => api.updateLead(id, { assignedAgent: event.target.value }).then(setLead)}
+          >
+            <option value="">Reassign agent</option>
+            {agents.map((agent) => <option key={agent.id} value={agent.name}>{agent.name}</option>)}
           </select>
-          <button className="link-button link-button--neutral">Merge Lead</button>
-          <button className="link-button link-button--danger">Delete Lead</button>
+          <button className="link-button link-button--neutral" onClick={() => api.mergeLead(id, id).then(setLead)}>Merge Lead</button>
+          <button className="link-button link-button--danger" onClick={deleteLead}>Delete Lead</button>
         </div>
       </section>
     </main>

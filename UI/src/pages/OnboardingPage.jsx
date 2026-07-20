@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../api/client'
 
 export default function OnboardingPage() {
   const [mode, setMode] = useState(null) // 'solo' | 'team'
@@ -7,6 +8,7 @@ export default function OnboardingPage() {
 
   function selectMode(m) {
     setMode(m)
+    api.saveWorkMode(m).catch(() => {})
     if (m === 'team') navigate('/team-setup')
   }
 

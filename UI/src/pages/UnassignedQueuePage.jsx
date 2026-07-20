@@ -1,13 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { unassignedLeads } from '../utils/leadsData'
+import { api } from '../api/client'
 
 export default function UnassignedQueuePage() {
   const [agentSelections, setAgentSelections] = useState({})
+  const [queueLeads, setQueueLeads] = useState(unassignedLeads)
   const assignedCount = Object.values(agentSelections).filter(Boolean).length
-  const urgentCount = unassignedLeads.filter((lead) => lead.hours >= 24).length
+  const urgentCount = queueLeads.filter((lead) => lead.hours >= 24).length
+
+  useEffect(() => { api.unassignedLeads().then(setQueueLeads).catch(() => {}) }, [])
 
   const updateAgent = (id, agent) => {
     setAgentSelections((prev) => ({ ...prev, [id]: agent }))
+  }
+
+  const submitAssignments = () => {
+    const assignments = Object.entries(agentSelections)
+      .filter(([, agent]) => agent)
+      .map(([leadId, agent]) => ({ leadId, agent }))
+    if (!assignments.length) return
+    api.assignLeads(assignments).then(() => {
+      setQueueLeads((current) => current.filter((lead) => !agentSelections[lead.id]))
+      setAgentSelections({})
+    }).catch(() => alert('Unable to submit assignments.'))
   }
 
   return (
@@ -29,11 +44,11 @@ export default function UnassignedQueuePage() {
           <div className="unassigned-selected">
             <span className="queue-count-icon" aria-hidden="true">⌁</span>
             <div>
-              <strong>{unassignedLeads.length} leads awaiting assignment</strong>
+              <strong>{queueLeads.length} leads awaiting assignment</strong>
               <span>Choose an agent for each lead, then submit.</span>
             </div>
           </div>
-          <span className="queue-progress"><strong>{assignedCount}</strong> of {unassignedLeads.length} assigned</span>
+          <span className="queue-progress"><strong>{assignedCount}</strong> of {queueLeads.length} assigned</span>
         </div>
 
         <div className="unassigned-table-wrapper">
@@ -48,7 +63,7 @@ export default function UnassignedQueuePage() {
               </tr>
             </thead>
             <tbody>
-              {unassignedLeads.map((lead) => (
+              {queueLeads.map((lead) => (
                 <tr key={lead.id} className={agentSelections[lead.id] ? 'unassigned-row-selected' : ''}>
                   <td data-label="Lead">
                     <div className="queue-lead-name">
@@ -80,7 +95,7 @@ export default function UnassignedQueuePage() {
         </div>
 
         <div className="unassigned-submit-row">
-          <button className="primary-button queue-submit-button">Assign selected leads <span aria-hidden="true">→</span></button>
+          <button className="primary-button queue-submit-button" onClick={submitAssignments}>Assign selected leads <span aria-hidden="true">→</span></button>
         </div>
       </section>
     </main>

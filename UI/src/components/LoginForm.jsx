@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { validateEmail } from '../utils/validation'
+import { api } from '../api/client'
 
 export default function LoginForm() {
   const navigate = useNavigate()
@@ -23,7 +24,12 @@ export default function LoginForm() {
     }
 
     setError('')
-    navigate('/leads')
+    api.login({ email: normalizedEmail, password })
+      .then((session) => {
+        localStorage.setItem('propsync-token', session.token)
+        navigate('/leads')
+      })
+      .catch(() => setError('Unable to log in. Please make sure the backend is running.'))
   }
 
   return (

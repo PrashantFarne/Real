@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StatCard from '../components/StatCard'
 import FunnelWidget from '../components/FunnelWidget'
 import AttentionList from '../components/AttentionList'
 import PerformanceTable from '../components/PerformanceTable'
 import { dashboardStats, funnelStages, attentionRows, scheduledVisits } from '../utils/dashboardData'
+import { api } from '../api/client'
 
 export default function DashboardPage() {
   const [selectedVisitGroup, setSelectedVisitGroup] = useState(null)
   const [showUrgentModal, setShowUrgentModal] = useState(false)
+  const [dashboard, setDashboard] = useState({ stats: dashboardStats, funnelStages, attentionRows, scheduledVisits })
   const navigate = useNavigate()
 
-  const urgentLeads = attentionRows.filter((row) => row.days > 7)
-  const selectedVisitStat = dashboardStats.find((stat) => stat.visitGroup === selectedVisitGroup)
-  const selectedVisits = selectedVisitGroup ? scheduledVisits[selectedVisitGroup] : []
+  useEffect(() => { api.dashboard().then(setDashboard).catch(() => {}) }, [])
+
+  const urgentLeads = dashboard.attentionRows.filter((row) => row.days > 7)
+  const selectedVisitStat = dashboard.stats.find((stat) => stat.visitGroup === selectedVisitGroup)
+  const selectedVisits = selectedVisitGroup ? dashboard.scheduledVisits[selectedVisitGroup] : []
   const visitCopy = {
     today: 'Today’s visits need confirmation and prompt follow-up.',
     tomorrow: 'Prepare the right inventory details before each visit.',
@@ -29,7 +33,7 @@ export default function DashboardPage() {
       </header>
 
       <section className="stats-row">
-        {dashboardStats.map((stat) => (
+        {dashboard.stats.map((stat) => (
           <StatCard key={stat.title} stat={stat} onClick={() => stat.popup && setSelectedVisitGroup(stat.visitGroup)} />
         ))}
       </section>
@@ -45,7 +49,7 @@ export default function DashboardPage() {
               Assign New Leads
             </button>
           </div>
-          <FunnelWidget stages={funnelStages} />
+          <FunnelWidget stages={dashboard.funnelStages} />
         </div>
 
         <div className="dashboard-panel dashboard-panel--wide">
@@ -58,7 +62,7 @@ export default function DashboardPage() {
               Urgent look
             </button>
           </div>
-          <AttentionList rows={attentionRows} />
+          <AttentionList rows={dashboard.attentionRows} />
         </div>
       </section>
 

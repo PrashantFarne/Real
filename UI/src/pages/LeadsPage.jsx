@@ -1,14 +1,20 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { leadColumns, leads } from '../utils/leadsData'
+import { useEffect, useState } from 'react'
+import { leadColumns, leads as seedLeads } from '../utils/leadsData'
+import { api } from '../api/client'
 
 export default function LeadsPage() {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [filterProject, setFilterProject] = useState('')
   const [filterStatus, setFilterStatus] = useState('')
+  const [allLeads, setAllLeads] = useState(seedLeads)
 
-  const filteredLeads = leads.filter((lead) => {
+  useEffect(() => {
+    api.leads().then(setAllLeads).catch(() => {})
+  }, [])
+
+  const filteredLeads = allLeads.filter((lead) => {
     const matchesSearch =
       lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lead.phone.includes(searchTerm) ||
@@ -20,8 +26,8 @@ export default function LeadsPage() {
     return matchesSearch && matchesProject && matchesStatus
   })
 
-  const projects = [...new Set(leads.map((lead) => lead.project))]
-  const statuses = [...new Set(leads.map((lead) => lead.status))]
+  const projects = [...new Set(allLeads.map((lead) => lead.project))]
+  const statuses = [...new Set(allLeads.map((lead) => lead.status))]
   const totalLeads = filteredLeads.length
 
   const initialsFor = (name) => name
