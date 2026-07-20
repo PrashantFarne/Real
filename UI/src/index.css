@@ -44,7 +44,7 @@ body {
 
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -53,6 +53,27 @@ body {
   border-radius: 22px;
   padding: 1.5rem;
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-top: 4px solid #2563eb;
+  min-height: 174px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card--today {
+  border-top-color: #ea580c;
+  background: linear-gradient(145deg, #fff7ed 0%, #ffffff 70%);
+}
+
+.stat-card--tomorrow {
+  border-top-color: #4f46e5;
+  background: linear-gradient(145deg, #f5f3ff 0%, #ffffff 70%);
+}
+
+.stat-card--week {
+  border-top-color: #0f766e;
+  background: linear-gradient(145deg, #f0fdfa 0%, #ffffff 70%);
 }
 
 .stat-card--clickable {
@@ -66,10 +87,28 @@ body {
 }
 
 .stat-card__label {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   color: #475569;
   font-size: 0.95rem;
+  font-weight: 650;
 }
+
+.stat-card__context {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0 0 0.8rem;
+  padding: 0.28rem 0.58rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.stat-card--today .stat-card__context { background: #ffedd5; color: #c2410c; }
+.stat-card--tomorrow .stat-card__context { background: #ede9fe; color: #5b21b6; }
+.stat-card--week .stat-card__context { background: #ccfbf1; color: #0f766e; }
 
 .stat-card__value {
   margin: 0;
@@ -83,6 +122,16 @@ body {
   color: #2563eb;
   font-weight: 600;
 }
+
+.stat-card__action {
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.stat-card--today .stat-card__action { color: #c2410c; }
+.stat-card--tomorrow .stat-card__action { color: #5b21b6; }
+.stat-card--week .stat-card__action { color: #0f766e; }
 
 .dashboard-grid {
   display: grid;
@@ -101,6 +150,7 @@ body {
   border-radius: 28px;
   padding: 1.5rem;
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .visit-modal-overlay {
@@ -122,7 +172,26 @@ body {
   border-radius: 24px;
   padding: 1.5rem;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+  border-top: 5px solid #2563eb;
 }
+
+.visit-modal--today { border-top-color: #ea580c; }
+.visit-modal--tomorrow { border-top-color: #4f46e5; }
+.visit-modal--week { border-top-color: #0f766e; }
+
+.visit-modal__eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.45rem;
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.visit-modal--today .visit-modal__eyebrow { color: #c2410c; }
+.visit-modal--tomorrow .visit-modal__eyebrow { color: #4338ca; }
+.visit-modal--week .visit-modal__eyebrow { color: #0f766e; }
 
 .visit-modal__header {
   display: flex;
@@ -154,12 +223,35 @@ body {
   border: 1px solid #e2e8f0;
 }
 
+.visit-modal--today .visit-item {
+  background: linear-gradient(135deg, #fff7ed, #ffffff);
+  border-color: #fed7aa;
+}
+
+.visit-modal--tomorrow .visit-item {
+  background: linear-gradient(135deg, #f5f3ff, #ffffff);
+  border-color: #ddd6fe;
+}
+
+.visit-modal--week .visit-item {
+  background: linear-gradient(135deg, #f0fdfa, #ffffff);
+  border-color: #99f6e4;
+}
+
 .visit-item__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
+}
+
+.visit-time {
+  display: block;
+  margin-top: 0.15rem;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .visit-chip {
@@ -171,6 +263,14 @@ body {
   font-size: 0.8rem;
   font-weight: 700;
 }
+
+.visit-phone {
+  color: #0f172a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.visit-phone:hover { text-decoration: underline; }
 
 .visit-label {
   color: #475569;
@@ -248,18 +348,38 @@ body {
 
 .funnel-widget {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  /* The Leads panel shares the dashboard row, so two generous columns are
+     clearer than five compressed cards on desktop. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
 }
 
 .funnel-item {
-  background: #ffffff;
-  border-radius: 16px;
+  min-width: 0;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
   padding: 1rem;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.funnel-item::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--stage-color);
+}
+
+.funnel-item:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--stage-color) 35%, #e2e8f0);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.09);
 }
 
 .funnel-item-header {
@@ -267,6 +387,26 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
+}
+
+.funnel-stage-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.funnel-stage-number {
+  display: inline-grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  flex: 0 0 auto;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--stage-color) 12%, white);
+  color: var(--stage-color);
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .funnel-label {
@@ -285,29 +425,55 @@ body {
 
 .funnel-percentage {
   font-weight: 700;
+  color: var(--stage-color);
+  font-size: 0.85rem;
+}
+
+.funnel-volume {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.funnel-volume strong {
   color: #0f172a;
-  font-size: 1rem;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.funnel-volume span {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .funnel-bar-container {
   width: 100%;
-  height: 36px;
+  height: 7px;
   background: #f1f5f9;
-  border-radius: 12px;
+  border-radius: 999px;
   overflow: hidden;
 }
 
 .funnel-bar-fill {
   height: 100%;
-  border-radius: 12px;
+  border-radius: inherit;
   transition: width 0.35s ease;
+  background: var(--stage-color);
+}
+
+.funnel-item-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 0.6rem;
-  color: #ffffff;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.funnel-note {
+  color: #475569;
+  font-size: 0.72rem;
   font-weight: 700;
-  font-size: 0.85rem;
+  text-align: right;
 }
 
 @media (max-width: 1024px) {
@@ -318,11 +484,11 @@ body {
 
 @media (max-width: 640px) {
   .funnel-widget {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .funnel-bar-container {
-    height: 28px;
+    height: 7px;
   }
 
   .funnel-item {
@@ -446,10 +612,6 @@ tbody tr + tr td {
     font-size: 0.9rem;
   }
 
-  .funnel-bar-container {
-    height: 28px;
-  }
-
   th,
   td {
     padding: 0.75rem 0.5rem;
@@ -519,13 +681,12 @@ tbody tr + tr td {
     font-size: 0.85rem;
   }
 
-  .funnel-bar-container {
-    height: 24px;
+  .funnel-widget {
+    grid-template-columns: 1fr;
   }
 
   .funnel-bar-fill {
-    padding-right: 0.5rem;
-    font-size: 0.75rem;
+    min-width: 0.35rem;
   }
 
   .table-card {

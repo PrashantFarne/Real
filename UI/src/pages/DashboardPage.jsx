@@ -4,14 +4,21 @@ import StatCard from '../components/StatCard'
 import FunnelWidget from '../components/FunnelWidget'
 import AttentionList from '../components/AttentionList'
 import PerformanceTable from '../components/PerformanceTable'
-import { dashboardStats, funnelStages, attentionRows, performanceRows, visitDetails } from '../utils/dashboardData'
+import { dashboardStats, funnelStages, attentionRows, scheduledVisits } from '../utils/dashboardData'
 
 export default function DashboardPage() {
-  const [showVisitModal, setShowVisitModal] = useState(false)
+  const [selectedVisitGroup, setSelectedVisitGroup] = useState(null)
   const [showUrgentModal, setShowUrgentModal] = useState(false)
   const navigate = useNavigate()
 
   const urgentLeads = attentionRows.filter((row) => row.days > 7)
+  const selectedVisitStat = dashboardStats.find((stat) => stat.visitGroup === selectedVisitGroup)
+  const selectedVisits = selectedVisitGroup ? scheduledVisits[selectedVisitGroup] : []
+  const visitCopy = {
+    today: 'Today’s visits need confirmation and prompt follow-up.',
+    tomorrow: 'Prepare the right inventory details before each visit.',
+    week: 'Your upcoming visit schedule for the next seven days.',
+  }
 
   return (
     <main className="dashboard-shell">
@@ -23,7 +30,7 @@ export default function DashboardPage() {
 
       <section className="stats-row">
         {dashboardStats.map((stat) => (
-          <StatCard key={stat.title} stat={stat} onClick={() => stat.popup && setShowVisitModal(true)} />
+          <StatCard key={stat.title} stat={stat} onClick={() => stat.popup && setSelectedVisitGroup(stat.visitGroup)} />
         ))}
       </section>
 
@@ -55,27 +62,34 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {showVisitModal && (
-        <div className="visit-modal-overlay" onClick={() => setShowVisitModal(false)}>
-          <div className="visit-modal" onClick={(e) => e.stopPropagation()}>
+      {selectedVisitStat && (
+        <div className="visit-modal-overlay" onClick={() => setSelectedVisitGroup(null)}>
+          <div className={`visit-modal visit-modal--${selectedVisitGroup}`} onClick={(e) => e.stopPropagation()}>
             <div className="visit-modal__header">
               <div>
-                <h3>Visitors</h3>
-                <p>Upcoming site visits scheduled for this period</p>
+                <span className="visit-modal__eyebrow">
+                  {selectedVisitGroup === 'today' ? 'Needs attention' : 'Visit schedule'}
+                </span>
+                <h3>{selectedVisitStat.title}</h3>
+                <p>{visitCopy[selectedVisitGroup]}</p>
               </div>
-              <button className="small-button" onClick={() => setShowVisitModal(false)}>
+              <button className="small-button" onClick={() => setSelectedVisitGroup(null)}>
                 Close
               </button>
             </div>
 
             <div className="visit-list">
-              {visitDetails.map((visitor) => (
+              {selectedVisits.map((visitor) => (
                 <div key={visitor.id} className="visit-item">
                   <div className="visit-item__header">
-                    <strong>{visitor.name}</strong>
+                    <div>
+                      <strong>{visitor.name}</strong>
+                      <span className="visit-time">{visitor.time}</span>
+                    </div>
                     <span className="visit-chip">{visitor.flatSize}</span>
                   </div>
                   <p><span className="visit-label">Email:</span> {visitor.email}</p>
+                  <p><span className="visit-label">Phone:</span> <a className="visit-phone" href={`tel:${visitor.phone.replace(/\s/g, '')}`}>{visitor.phone}</a></p>
                   <p><span className="visit-label">Notes:</span> {visitor.notes}</p>
                   <p><span className="visit-label">Profession:</span> {visitor.profession}</p>
                 </div>
